@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol SignUpViewPresenterProtocol: AnyObject {
+protocol SignUpPresenterProtocol: AnyObject {
     func signupButtonTapped(name: String, phone: String, username: String, password: String)
     init(view: SignUpViewController)
 }
 
-class SignUpViewPresenter: SignUpViewPresenterProtocol {
+class SignUpPresenter: SignUpPresenterProtocol {
     var view: SignUpViewController?
     
     required init(view: SignUpViewController) {

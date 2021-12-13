@@ -9,7 +9,7 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
-    var presenter: SignUpViewPresenterProtocol?
+    var presenter: SignUpPresenterProtocol?
     
     private let nameLabel: UILabel = {
         let label = UILabel()
