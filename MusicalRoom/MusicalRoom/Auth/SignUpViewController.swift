@@ -9,6 +9,8 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
+    var presenter: SignUpViewPresenterProtocol?
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -140,6 +142,7 @@ class SignUpViewController: UIViewController {
     
     func setBackground(){
         let background = UIImage(named: "signup-bg")
+        presenter = SignUpViewPresenter(view: self)
         var imageView : UIImageView!
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -251,6 +254,33 @@ class SignUpViewController: UIViewController {
     }
     
     @objc private func signupButtonTapped() {
-        print("Kek")
+        nameField.resignFirstResponder()
+        phoneField.resignFirstResponder()
+        usernameField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        repeatPasswordField.resignFirstResponder()
+        
+        guard let name = nameField.text,
+              let phone = phoneField.text,
+              let username = usernameField.text,
+              let password = passwordField.text,
+              let repeatPassword = repeatPasswordField.text,
+              !name.isEmpty,
+              !phone.isEmpty,
+              !username.isEmpty,
+              !password.isEmpty,
+              !repeatPassword.isEmpty,
+              password.count >= 6,
+              password == repeatPassword
+        else {
+            let alert = UIAlertController(title: "Ooops!",
+                                          message: "Please, fill all the fields",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        presenter?.signupButtonTapped(name: name, phone: phone, username: username, password: password)
     }
 }
