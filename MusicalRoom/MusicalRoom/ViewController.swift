@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .systemPink
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        //add fonts
         return button
     }()
     
@@ -82,7 +83,9 @@ class ViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
-        let vc = LoginViewController()
+//        let vc = LoginViewController()
+        //fixme временно
+        let vc = MainScreenViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false, completion: nil)
     }

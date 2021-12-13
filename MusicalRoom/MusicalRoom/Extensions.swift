@@ -9,4 +9,5 @@ import UIKit
 
 extension UIColor {
     static let textFieldBgColor = UIColor(named: "text-field-bg")
+    static let infoLabelTextColor = UIColor(named: "info-text")
 }

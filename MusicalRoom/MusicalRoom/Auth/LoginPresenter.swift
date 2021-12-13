@@ -21,5 +21,9 @@ class LoginPresenter: LoginPresenterProtocol {
     
     func loginButtonTapped(username: String, password: String) {
         //check data and navigate to main screen
+        
+        let view = MainScreenViewController()
+        view.modalPresentationStyle = .fullScreen
+        self.view?.present(view, animated: false, completion: nil)
     }
 }
