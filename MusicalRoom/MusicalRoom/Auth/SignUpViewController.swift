@@ -135,14 +135,13 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        presenter = SignUpPresenter(view: self)
         setBackground()
         setUI()
     }
     
     func setBackground(){
         let background = UIImage(named: "signup-bg")
-        presenter = SignUpViewPresenter(view: self)
         var imageView : UIImageView!
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
