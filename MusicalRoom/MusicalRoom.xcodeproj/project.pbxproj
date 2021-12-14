@@ -16,6 +16,9 @@
 		6D94CA712767DE90009F7E7B /* FasterOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D94CA702767D9FB009F7E7B /* FasterOne-Regular.ttf */; };
 		6D94CA722767DE92009F7E7B /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D94CA6C2767D991009F7E7B /* WorkSans-Regular.ttf */; };
 		6D94CA732767DE94009F7E7B /* WorkSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D94CA6D2767D9A6009F7E7B /* WorkSans-Medium.ttf */; };
+		6D94CA7D276913BE009F7E7B /* EquipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA7C276913BE009F7E7B /* EquipmentViewController.swift */; };
+		6D94CA7F276916F1009F7E7B /* EquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA7E276916F1009F7E7B /* EquipmentTableViewCell.swift */; };
+		6D94CA81276922A2009F7E7B /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA80276922A2009F7E7B /* Equipment.swift */; };
 		6DFBF9232766AFC600FAAA04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */; };
 		6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */; };
 		6DFBF9272766AFC600FAAA04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9262766AFC600FAAA04 /* ViewController.swift */; };
@@ -34,6 +37,9 @@
 		6D94CA6C2767D991009F7E7B /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Regular.ttf"; sourceTree = "<group>"; };
 		6D94CA6D2767D9A6009F7E7B /* WorkSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Medium.ttf"; sourceTree = "<group>"; };
 		6D94CA702767D9FB009F7E7B /* FasterOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FasterOne-Regular.ttf"; sourceTree = "<group>"; };
+		6D94CA7C276913BE009F7E7B /* EquipmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentViewController.swift; sourceTree = "<group>"; };
+		6D94CA7E276916F1009F7E7B /* EquipmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewCell.swift; sourceTree = "<group>"; };
+		6D94CA80276922A2009F7E7B /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicalRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +108,16 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		6D94CA792769138B009F7E7B /* Equipment */ = {
+			isa = PBXGroup;
+			children = (
+				6D94CA7C276913BE009F7E7B /* EquipmentViewController.swift */,
+				6D94CA7E276916F1009F7E7B /* EquipmentTableViewCell.swift */,
+				6D94CA80276922A2009F7E7B /* Equipment.swift */,
+			);
+			path = Equipment;
+			sourceTree = "<group>";
+		};
 		6DFBF9162766AFC500FAAA04 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +137,7 @@
 		6DFBF9212766AFC600FAAA04 /* MusicalRoom */ = {
 			isa = PBXGroup;
 			children = (
+				6D94CA792769138B009F7E7B /* Equipment */,
 				6D94CA672767D814009F7E7B /* Fonts */,
 				6D94CA642767D5D5009F7E7B /* Main */,
 				6D94CA592766B8C7009F7E7B /* Auth */,
@@ -209,6 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D94CA632767D1AB009F7E7B /* LoginPresenter.swift in Sources */,
+				6D94CA7F276916F1009F7E7B /* EquipmentTableViewCell.swift in Sources */,
+				6D94CA81276922A2009F7E7B /* Equipment.swift in Sources */,
 				6D94CA612767D186009F7E7B /* LoginViewController.swift in Sources */,
 				6D94CA5F2767CFC8009F7E7B /* SignUpPresenter.swift in Sources */,
 				6D94CA5D2766BEBF009F7E7B /* Extensions.swift in Sources */,
@@ -217,6 +236,7 @@
 				6D94CA5B2766B8E0009F7E7B /* SignUpViewController.swift in Sources */,
 				6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */,
 				6D94CA662767D5EC009F7E7B /* MainScreenViewController.swift in Sources */,
+				6D94CA7D276913BE009F7E7B /* EquipmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
