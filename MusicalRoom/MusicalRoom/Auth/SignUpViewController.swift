@@ -11,9 +11,12 @@ class SignUpViewController: UIViewController {
     
     var presenter: SignUpPresenterProtocol?
     
+    // TODO
+    //изменить шрифты лейблов на Sacramento после мерджа feature\reserve-screen
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +26,7 @@ class SignUpViewController: UIViewController {
         field.autocorrectionType = .no
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
-        field.placeholder = "username"
+        field.placeholder = "name"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -35,6 +38,7 @@ class SignUpViewController: UIViewController {
     private let phoneLabel: UILabel = {
         let label = UILabel()
         label.text = "Phone"
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,6 +61,7 @@ class SignUpViewController: UIViewController {
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,6 +84,7 @@ class SignUpViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -102,6 +108,7 @@ class SignUpViewController: UIViewController {
     private let repeatPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "Repeat password"
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -282,5 +289,15 @@ class SignUpViewController: UIViewController {
         }
         
         presenter?.signupButtonTapped(name: name, phone: phone, username: username, password: password)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ooops. Seems like user with this username already exists", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -14,11 +14,13 @@ protocol LoginPresenterProtocol: AnyObject {
 
 class LoginPresenter: LoginPresenterProtocol {
     private let group = DispatchGroup()
+    private var errorOccured: Bool
     
     var view: LoginViewController?
     
     required init(view: LoginViewController) {
         self.view = view
+        self.errorOccured = false
     }
     
     func loginButtonTapped(username: String, password: String) {
@@ -41,9 +43,7 @@ class LoginPresenter: LoginPresenterProtocol {
                 let response = try JSONDecoder().decode(SignInResponse.self, from: data)
                 print(response.token)
             } catch {
-                //fixme alertMessage
-                print(error)
-                return
+                self.errorOccured = true
             }
             self.group.leave()
 
@@ -51,11 +51,15 @@ class LoginPresenter: LoginPresenterProtocol {
         task.resume()
         
         group.notify(queue: .main) { [weak self] in
-            self?.navifateToMainScreen()
+            if (self?.errorOccured != nil && self?.errorOccured == true) {
+                self?.view?.showAlert()
+                return
+            }
+            self?.navigateToMainScreen()
         }
     }
     
-    func navifateToMainScreen() {
+    func navigateToMainScreen() {
         let view = MainScreenViewController()
         view.modalPresentationStyle = .fullScreen
         self.view?.present(view, animated: false, completion: nil)

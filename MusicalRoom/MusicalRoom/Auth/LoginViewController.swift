@@ -158,4 +158,14 @@ class LoginViewController: UIViewController {
         
         presenter?.loginButtonTapped(username: username, password: password)
     }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ooops. Seems like you entered wrong username or password", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
+    }
 }
