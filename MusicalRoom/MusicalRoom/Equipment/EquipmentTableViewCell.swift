@@ -20,14 +20,14 @@ class EquipmentTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
     let priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
@@ -60,7 +60,7 @@ class EquipmentTableViewCell: UITableViewCell {
                                  height: contentView.frame.size.height)
         
         image.heightAnchor.constraint(equalToConstant: contentView.frame.size.height).isActive = true
-        image.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        image.widthAnchor.constraint(equalToConstant: 100).isActive = true
         image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0).isActive = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +69,7 @@ class EquipmentTableViewCell: UITableViewCell {
     
     func configure(with equipment: Equipment) {
         nameLabel.text = equipment.name
-        image.image = UIImage(named: "guitar1")
+        image.image = UIImage(named: "empty-image")
         priceLabel.text = String(equipment.price)
     }
 }

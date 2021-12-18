@@ -8,8 +8,10 @@
 import Foundation
 import UIKit
 
-struct Equipment {
+struct Equipment: Codable {
+    let id: Int
     var name: String
-    var image: UIImageView?
+    var description: String
+//    var image: UIImageView?
     var price: Int
 }
