@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Equipment: Codable {
     let id: Int

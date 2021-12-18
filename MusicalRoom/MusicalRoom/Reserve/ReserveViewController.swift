@@ -9,8 +9,14 @@ import UIKit
 import DropDown
 
 class ReserveViewController: UIViewController {
+    private let group = DispatchGroup()
     
-    let rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"]
+//    let rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"]
+    
+    var selectedRoom: Room?
+    var selectedDate: Date?
+    var rooms = [Room]()
+    var roomsNames = [String]()
     
     private let roomLabel: UILabel = {
         let label = UILabel()
@@ -23,7 +29,7 @@ class ReserveViewController: UIViewController {
     private let roomView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemPink
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -48,10 +54,21 @@ class ReserveViewController: UIViewController {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
+        label.textAlignment = .center
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let dateField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 15
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    let datePicker = UIDatePicker()
     
     private let reserveButton: UIButton = {
         let button = UIButton()
@@ -69,18 +86,26 @@ class ReserveViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setBackground()
         setUI()
         
-        dropDown.anchorView = roomView
-        dropDown.dataSource = rooms
+        loadRooms()
         
+        dropDown.anchorView = roomView
+//        let roomsNames = rooms.map { $0.name }
+//        dropDown.dataSource = roomsNames
+//        print("names")
+//        print(roomsNames)
+
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.topOffset = CGPoint(x: 0, y:-(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.direction = .bottom
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
           print("Selected item: \(item) at index: \(index)")
-            self.selectRoomButton.setTitle(rooms[index], for: .normal)
+            self.selectRoomButton.setTitle(roomsNames[index], for: .normal)
+            selectedRoom = rooms[index]
+            print(selectedRoom)
         }
     }
     
@@ -97,6 +122,7 @@ class ReserveViewController: UIViewController {
     }
     
     func setUI() {
+        // ROOM
         view.addSubview(roomLabel)
         roomLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         roomLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
@@ -104,7 +130,7 @@ class ReserveViewController: UIViewController {
         roomView.addSubview(selectRoomButton)
         
         view.addSubview(roomView)
-        roomView.topAnchor.constraint(equalTo: roomLabel.bottomAnchor, constant: 10).isActive = true
+        roomView.topAnchor.constraint(equalTo: roomLabel.bottomAnchor, constant: 5).isActive = true
         roomView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         roomView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         roomView.heightAnchor.constraint(equalToConstant: 45).isActive = true
@@ -113,7 +139,29 @@ class ReserveViewController: UIViewController {
         selectRoomButton.bottomAnchor.constraint(equalTo: roomView.bottomAnchor, constant: 0).isActive = true
         selectRoomButton.leftAnchor.constraint(equalTo: roomView.leftAnchor, constant: 0).isActive = true
         selectRoomButton.rightAnchor.constraint(equalTo: roomView.rightAnchor, constant: 0).isActive = true
-
+        
+        // DATE
+        view.addSubview(dateLabel)
+        dateLabel.topAnchor.constraint(equalTo: roomView.bottomAnchor, constant: 30).isActive = true
+        dateLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        
+        view.addSubview(dateField)
+        dateField.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5).isActive = true
+        dateField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        dateField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        dateField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonTapped))
+        toolBar.setItems([doneButton], animated: true)
+        
+        dateField.inputAccessoryView = toolBar
+        dateField.inputView = datePicker
+        datePicker.datePickerMode = .date
+        
+        // RESERVE BUTTON
         view.addSubview(reserveButton)
         reserveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
         view.addConstraint(NSLayoutConstraint(item: reserveButton,
@@ -135,5 +183,39 @@ class ReserveViewController: UIViewController {
     @objc private func selectRoomButtonTapped() {
         dropDown.show()
     }
-
+    
+    @objc private func doneButtonTapped() {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        selectedDate = datePicker.date
+        dateField.text = formatter.string(from: datePicker.date)
+    }
+    
+    func loadRooms() {
+        group.enter()
+        var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+            guard let data = data else {
+                return
+            }
+            
+            let roomsArray = try? JSONDecoder().decode([Room].self, from: data)
+            self.rooms = roomsArray ?? []
+            group.leave()
+        }
+        task.resume()
+        group.notify(queue: .main) { [weak self] in
+            self?.fillDropDown()
+        }
+    }
+    
+    func fillDropDown() {
+        roomsNames = rooms.map { $0.name }
+        dropDown.dataSource = roomsNames
+        print("names")
+        print(roomsNames)
+    }
 }
