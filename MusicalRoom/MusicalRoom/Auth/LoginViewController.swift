@@ -11,6 +11,8 @@ class LoginViewController: UIViewController {
     
     var presenter: LoginPresenterProtocol?
     
+    // TODO
+    // добавить курсивный шрифт и сделать текс белым после мерджа ветки feature\reserve-screen
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"
@@ -61,6 +63,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.backgroundColor = .systemPink
         button.addTarget(self,action: #selector(loginButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -154,5 +157,15 @@ class LoginViewController: UIViewController {
         }
         
         presenter?.loginButtonTapped(username: username, password: password)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ooops. Seems like you entered wrong username or password", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
     }
 }
