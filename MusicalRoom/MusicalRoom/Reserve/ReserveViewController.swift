@@ -21,6 +21,7 @@ class ReserveViewController: UIViewController {
     private let roomLabel: UILabel = {
         let label = UILabel()
         label.text = "Room"
+        label.textColor = .white
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -55,6 +56,7 @@ class ReserveViewController: UIViewController {
         let label = UILabel()
         label.text = "Date"
         label.textAlignment = .center
+        label.textColor = .white
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -196,6 +198,7 @@ class ReserveViewController: UIViewController {
         group.enter()
         var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
         request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data else {
