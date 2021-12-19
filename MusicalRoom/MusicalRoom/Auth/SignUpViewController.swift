@@ -303,4 +303,14 @@ class SignUpViewController: UIViewController {
 
         present(alert, animated: true, completion: nil)
     }
+    
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "Woohoo. You signed up successfully", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
+    }
 }

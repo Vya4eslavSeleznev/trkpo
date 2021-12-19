@@ -10,8 +10,7 @@ import DropDown
 
 class ReserveViewController: UIViewController {
     private let group = DispatchGroup()
-    
-//    let rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"]
+    var presenter: ReservePresenterProtocol?
     
     var selectedRoom: Room?
     var selectedDate: Date?
@@ -89,16 +88,14 @@ class ReserveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = ReservePresenter(view: self)
+        
         setBackground()
         setUI()
         
         loadRooms()
         
         dropDown.anchorView = roomView
-//        let roomsNames = rooms.map { $0.name }
-//        dropDown.dataSource = roomsNames
-//        print("names")
-//        print(roomsNames)
 
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.topOffset = CGPoint(x: 0, y:-(dropDown.anchorView?.plainView.bounds.height)!)
@@ -180,6 +177,7 @@ class ReserveViewController: UIViewController {
     
     @objc private func reserveButtonTapped() {
         //todo
+        presenter?.reserveButtonTapped()
     }
     
     @objc private func selectRoomButtonTapped() {

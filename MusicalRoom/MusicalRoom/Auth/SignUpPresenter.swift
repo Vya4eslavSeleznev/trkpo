@@ -62,9 +62,11 @@ class SignUpPresenter: SignUpPresenterProtocol {
         }
     }
     
+    // navigate to login screen to authorize and get token and id
     func navigateToMainScreen() {
-        let view = MainScreenViewController()
+        self.view?.showSuccessAlert()
+        let view = LoginViewController()
         view.modalPresentationStyle = .fullScreen
-        self.view?.present(view, animated: false, completion: nil)
+        self.view?.present(view, animated: true, completion: nil)
     }
 }
