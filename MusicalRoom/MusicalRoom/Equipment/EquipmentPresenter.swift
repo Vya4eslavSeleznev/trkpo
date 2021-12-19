@@ -8,21 +8,12 @@
 import Foundation
 
 protocol EquipmentPresenterProtocol: AnyObject {
-//    var content: [Equipment] {
-//        get
-//    }
     
     func loadContent()
     init(view: EquipmentViewController)
 }
 
-class EquipmentPresenter: EquipmentPresenterProtocol {
-//    var content: [Equipment] {
-//        didSet {
-//            view?.tableView.reloadData()
-//        }
-//    }
-    
+class EquipmentPresenter: EquipmentPresenterProtocol {    
     var content: [Equipment]
     
     var view: EquipmentViewController?

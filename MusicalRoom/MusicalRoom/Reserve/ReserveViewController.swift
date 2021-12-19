@@ -10,8 +10,7 @@ import DropDown
 
 class ReserveViewController: UIViewController {
     private let group = DispatchGroup()
-    
-//    let rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"]
+    var presenter: ReservePresenterProtocol?
     
     var selectedRoom: Room?
     var selectedDate: Date?
@@ -21,6 +20,7 @@ class ReserveViewController: UIViewController {
     private let roomLabel: UILabel = {
         let label = UILabel()
         label.text = "Room"
+        label.textColor = .white
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -28,7 +28,7 @@ class ReserveViewController: UIViewController {
     
     private let roomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
         view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -37,24 +37,16 @@ class ReserveViewController: UIViewController {
     private let selectRoomButton: UIButton = {
         let button = UIButton()
         button.setTitle("Select Room", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.addTarget(self,action: #selector(selectRoomButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    //fixme
-    private let instrumentsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Instruments"
-        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
-        label.textAlignment = .center
+        label.textColor = .white
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -64,6 +56,7 @@ class ReserveViewController: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 15
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -83,9 +76,11 @@ class ReserveViewController: UIViewController {
     }()
     
     let dropDown = DropDown()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = ReservePresenter(view: self)
         
         setBackground()
         setUI()
@@ -93,19 +88,14 @@ class ReserveViewController: UIViewController {
         loadRooms()
         
         dropDown.anchorView = roomView
-//        let roomsNames = rooms.map { $0.name }
-//        dropDown.dataSource = roomsNames
-//        print("names")
-//        print(roomsNames)
-
+        
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.topOffset = CGPoint(x: 0, y:-(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.direction = .bottom
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-          print("Selected item: \(item) at index: \(index)")
+            print("Selected item: \(item) at index: \(index)")
             self.selectRoomButton.setTitle(roomsNames[index], for: .normal)
             selectedRoom = rooms[index]
-            print(selectedRoom)
         }
     }
     
@@ -173,29 +163,15 @@ class ReserveViewController: UIViewController {
                                               constant: 0))
         reserveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         reserveButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-
+        
     }
     
-    @objc private func reserveButtonTapped() {
-        //todo
-    }
-    
-    @objc private func selectRoomButtonTapped() {
-        dropDown.show()
-    }
-    
-    @objc private func doneButtonTapped() {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        selectedDate = datePicker.date
-        dateField.text = formatter.string(from: datePicker.date)
-    }
-    
+    //todo вынести в презентер
     func loadRooms() {
         group.enter()
         var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
         request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data else {
@@ -215,7 +191,44 @@ class ReserveViewController: UIViewController {
     func fillDropDown() {
         roomsNames = rooms.map { $0.name }
         dropDown.dataSource = roomsNames
-        print("names")
-        print(roomsNames)
+    }
+    
+    @objc private func selectRoomButtonTapped() {
+        dropDown.show()
+    }
+    
+    @objc private func doneButtonTapped() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-M-d"
+        selectedDate = datePicker.date
+        dateField.text = formatter.string(from: datePicker.date)
+    }
+    
+    @objc private func reserveButtonTapped() {
+        if (selectedRoom != nil && selectedDate != nil) {
+            presenter?.reserveButtonTapped(roomId: selectedRoom!.id, date: dateField.text!)
+        } else {
+        showAlert(title: "Ooops. You didn't fill something")
+        }
+    }
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "Woohoo. You successfully reserved a room", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

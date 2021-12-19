@@ -8,7 +8,8 @@
 import Foundation
 
 struct SignInResponse: Codable {
-    var id: Int
-    var token: String
+    var customerId: Int
     var userName: String
+    var userId: Int
+    var token: String
 }

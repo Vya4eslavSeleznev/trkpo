@@ -10,12 +10,12 @@ import UIKit
 class LoginViewController: UIViewController {
     
     var presenter: LoginPresenterProtocol?
-    
-    // TODO
-    // добавить курсивный шрифт и сделать текс белым после мерджа ветки feature\reserve-screen
+
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,6 +38,8 @@ class LoginViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -99,7 +101,7 @@ class LoginViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        usernameField.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        usernameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -116,7 +118,7 @@ class LoginViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 40).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         

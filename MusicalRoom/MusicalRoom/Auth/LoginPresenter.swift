@@ -41,7 +41,13 @@ class LoginPresenter: LoginPresenterProtocol {
             
             do {
                 let response = try JSONDecoder().decode(SignInResponse.self, from: data)
-                print(response.token)
+                print("Token: \(response.token)")
+                print("User id: \(response.userId)")
+                print("Customer id: \(response.customerId)")
+                UserData.userId = response.userId
+                UserData.bearerToken = response.token
+                UserData.customerId = response.customerId
+                
             } catch {
                 self.errorOccured = true
             }
@@ -62,6 +68,6 @@ class LoginPresenter: LoginPresenterProtocol {
     func navigateToMainScreen() {
         let view = MainScreenViewController()
         view.modalPresentationStyle = .fullScreen
-        self.view?.present(view, animated: false, completion: nil)
+        self.view?.present(view, animated: true, completion: nil)
     }
 }

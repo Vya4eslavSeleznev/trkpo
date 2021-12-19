@@ -72,33 +72,33 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-//        headerView.backgroundColor = .systemPink
-
+        //        headerView.backgroundColor = .systemPink
+        
         headerView.addSubview(appearanceLabel)
         appearanceLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor, constant: 0).isActive = true
         appearanceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-
+        
         headerView.addSubview(nameLabel)
         nameLabel.rightAnchor.constraint(equalTo: appearanceLabel.leftAnchor, constant: -50).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-
+        
         headerView.addSubview(priceLabel)
         priceLabel.leftAnchor.constraint(equalTo: appearanceLabel.rightAnchor, constant: 50).isActive = true
         priceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-
+        
         return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadContent()
         
-//        tableView.backgroundColor = .link
+        //        tableView.backgroundColor = .link
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
@@ -113,9 +113,11 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
         group.enter()
         var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
         request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data else {
+                print(error)
                 return
             }
             
