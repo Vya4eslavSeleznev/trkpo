@@ -20,7 +20,7 @@ class ReserveViewController: UIViewController {
     private let roomLabel: UILabel = {
         let label = UILabel()
         label.text = "Room"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +46,7 @@ class ReserveViewController: UIViewController {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,6 +61,7 @@ class ReserveViewController: UIViewController {
         return textField
     }()
     
+    //FIXME!!!
     let datePicker = UIDatePicker()
     
     private let reserveButton: UIButton = {

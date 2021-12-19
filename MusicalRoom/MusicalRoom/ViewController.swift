@@ -86,7 +86,7 @@ class ViewController: UIViewController {
     @objc private func loginButtonTapped() {
         let vc = LoginViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
 }
 
