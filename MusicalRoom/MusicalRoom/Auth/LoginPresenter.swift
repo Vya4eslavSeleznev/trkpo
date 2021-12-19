@@ -41,10 +41,12 @@ class LoginPresenter: LoginPresenterProtocol {
             
             do {
                 let response = try JSONDecoder().decode(SignInResponse.self, from: data)
-                print("TOKEN: \(response.token)")
-                print("ID: \(response.id)")
-                UserData.userId = response.id
+                print("Token: \(response.token)")
+                print("User id: \(response.userId)")
+                print("Customer id: \(response.customerId)")
+                UserData.userId = response.userId
                 UserData.bearerToken = response.token
+                UserData.customerId = response.customerId
                 
             } catch {
                 self.errorOccured = true
