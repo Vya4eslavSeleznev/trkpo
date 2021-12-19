@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol LoginPresenterProtocol: AnyObject {
     func loginButtonTapped(username: String, password: String)
@@ -66,7 +67,8 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func navigateToMainScreen() {
-        let view = MainScreenViewController()
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let view = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UIViewController
         view.modalPresentationStyle = .fullScreen
         self.view?.present(view, animated: true, completion: nil)
     }
