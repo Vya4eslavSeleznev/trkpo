@@ -151,6 +151,7 @@ class ReserveViewController: UIViewController {
         dateField.inputAccessoryView = toolBar
         dateField.inputView = datePicker
         datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
         
         // RESERVE BUTTON
         view.addSubview(reserveButton)
