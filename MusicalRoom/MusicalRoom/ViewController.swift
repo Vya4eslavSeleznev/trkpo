@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = .darkGray
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(loginButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = .darkGray
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     func setUI() {
         view.addSubview(signupButton)
-        signupButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        signupButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120).isActive = true
         view.addConstraint(NSLayoutConstraint(item: signupButton,
                                               attribute: .width,
                                               relatedBy: .equal,
@@ -78,15 +78,14 @@ class ViewController: UIViewController {
     }
     
     @objc private func signupButtonTapped() {
-        let vc = SignUpViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
+        view.backgroundColor = .white
+        let signupVc = SignUpViewController()
+        navigationController?.pushViewController(signupVc, animated: false)
     }
     
     @objc private func loginButtonTapped() {
-        let vc = LoginViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
+        let loginVC = LoginViewController()
+        navigationController?.pushViewController(loginVC, animated: false)
     }
 }
 

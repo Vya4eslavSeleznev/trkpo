@@ -137,7 +137,7 @@ class SignUpViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = .darkGray
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -173,7 +173,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        nameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        nameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         

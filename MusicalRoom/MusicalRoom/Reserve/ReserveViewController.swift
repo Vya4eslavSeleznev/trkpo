@@ -61,7 +61,6 @@ class ReserveViewController: UIViewController {
         return textField
     }()
     
-    //FIXME!!!
     let datePicker = UIDatePicker()
     
     private let reserveButton: UIButton = {
@@ -70,7 +69,7 @@ class ReserveViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
         button.setTitle("Reserve", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(reserveButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -165,7 +164,6 @@ class ReserveViewController: UIViewController {
                                               constant: 0))
         reserveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         reserveButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
     }
     
     //todo вынести в презентер

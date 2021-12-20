@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(loginButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -101,7 +101,7 @@ class LoginViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        usernameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        usernameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
