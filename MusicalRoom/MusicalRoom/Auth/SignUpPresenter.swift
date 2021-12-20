@@ -58,6 +58,9 @@ class SignUpPresenter: SignUpPresenterProtocol {
                 self?.view?.showAlert()
                 return
             }
+            UserData.name = name
+            UserData.phone = phone
+            UserData.username = username
             self?.navigateToMainScreen()
         }
     }

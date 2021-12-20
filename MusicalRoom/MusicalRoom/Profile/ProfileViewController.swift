@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var presenter: ProfilePresenterProtocol?
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person")
@@ -122,7 +124,7 @@ class ProfileViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
         button.setTitle("Update", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(updateButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -130,6 +132,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = ProfilePresenter(view: self)
         setBackground()
         setUI()
     }
@@ -169,6 +172,7 @@ class ProfileViewController: UIViewController {
         nameField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        nameField.text = UserData.name
         
         view.addSubview(nameLabel)
         nameLabel.bottomAnchor.constraint(equalTo: nameField.topAnchor, constant: -5).isActive = true
@@ -186,6 +190,7 @@ class ProfileViewController: UIViewController {
         phoneField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 60).isActive = true
         phoneField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         phoneField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        phoneField.text = UserData.phone
         
         view.addSubview(phoneLabel)
         phoneLabel.bottomAnchor.constraint(equalTo: phoneField.topAnchor, constant: -5).isActive = true
@@ -203,27 +208,28 @@ class ProfileViewController: UIViewController {
         usernameField.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 60).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        usernameField.text = UserData.username
         
         view.addSubview(usernameLabel)
         usernameLabel.bottomAnchor.constraint(equalTo: usernameField.topAnchor, constant: -5).isActive = true
         usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
        
-        // PASSWORD
-        view.addSubview(passwordField)
-        view.addConstraint(NSLayoutConstraint(item: passwordField,
-                                              attribute: .width,
-                                              relatedBy: .equal,
-                                              toItem: view,
-                                              attribute: .width,
-                                              multiplier: 0.85,
-                                              constant: 0))
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
-        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
-        view.addSubview(passwordLabel)
-        passwordLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -5).isActive = true
-        passwordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+//        // PASSWORD
+//        view.addSubview(passwordField)
+//        view.addConstraint(NSLayoutConstraint(item: passwordField,
+//                                              attribute: .width,
+//                                              relatedBy: .equal,
+//                                              toItem: view,
+//                                              attribute: .width,
+//                                              multiplier: 0.85,
+//                                              constant: 0))
+//        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
+//        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+//
+//        view.addSubview(passwordLabel)
+//        passwordLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -5).isActive = true
+//        passwordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         
         // BUTTON
         view.addSubview(updateButton)
@@ -240,7 +246,31 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func updateButtonTapped() {
-        //todo
+        guard let name = nameField.text,
+              let phone = phoneField.text,
+              let username = usernameField.text,
+              !name.isEmpty,
+              !phone.isEmpty,
+              !username.isEmpty
+        else {
+            let alert = UIAlertController(title: "Ooops!",
+                                          message: "You didn't fill some info about yourself",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        presenter?.updateButtonTapped(name: name, phone: phone, username: username)
     }
-
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

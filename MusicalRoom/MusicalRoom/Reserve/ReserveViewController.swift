@@ -204,6 +204,8 @@ class ReserveViewController: UIViewController {
         formatter.dateFormat = "y-M-d"
         selectedDate = datePicker.date
         dateField.text = formatter.string(from: datePicker.date)
+        dateField.inputView = .none
+        dateField.resignFirstResponder()
     }
     
     @objc private func reserveButtonTapped() {
