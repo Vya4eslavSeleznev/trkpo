@@ -20,7 +20,7 @@ class ReserveViewController: UIViewController {
     private let roomLabel: UILabel = {
         let label = UILabel()
         label.text = "Room"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +46,7 @@ class ReserveViewController: UIViewController {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -69,7 +69,7 @@ class ReserveViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
         button.setTitle("Reserve", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(reserveButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -150,6 +150,7 @@ class ReserveViewController: UIViewController {
         dateField.inputAccessoryView = toolBar
         dateField.inputView = datePicker
         datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
         
         // RESERVE BUTTON
         view.addSubview(reserveButton)
@@ -163,7 +164,6 @@ class ReserveViewController: UIViewController {
                                               constant: 0))
         reserveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         reserveButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
     }
     
     //todo вынести в презентер
@@ -202,6 +202,8 @@ class ReserveViewController: UIViewController {
         formatter.dateFormat = "y-M-d"
         selectedDate = datePicker.date
         dateField.text = formatter.string(from: datePicker.date)
+        dateField.inputView = .none
+        dateField.resignFirstResponder()
     }
     
     @objc private func reserveButtonTapped() {

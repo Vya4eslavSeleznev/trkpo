@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KiC-Uu-Fno">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -59,6 +59,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ur-fx-cw2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="280" y="895"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XLd-qt-uOF">
+            <objects>
+                <navigationController id="KiC-Uu-Fno" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GkR-5L-Epl">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="N8Z-Cd-htG" kind="relationship" relationship="rootViewController" id="Fo1-6i-p6z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lAF-s1-zO4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4025" y="818"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="PNl-of-YHz">
+            <objects>
+                <viewController id="N8Z-Cd-htG" customClass="ViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n16-lw-UgR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Bsw-Xn-B0Y"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2kx-UA-3Xz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="buP-vy-s1p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3094" y="818"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="iZp-dr-qCh">
+            <objects>
+                <viewController id="oG7-hd-5Ly" customClass="TestViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t3W-sn-bO0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="left" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-V7-VHJ">
+                                <rect key="frame" x="40" y="292" width="334" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ONp-fx-r1w"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tWg-k5-LzK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2343.4782608695655" y="1899.7767857142856"/>
         </scene>
         <!--Home-->
         <scene sceneID="bED-gj-HAj">
@@ -179,7 +232,7 @@
         <!--Profile-->
         <scene sceneID="Hga-kv-dod">
             <objects>
-                <viewController id="7B2-ey-Smy" sceneMemberID="viewController">
+                <viewController id="7B2-ey-Smy" customClass="ProfileViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="erB-ew-cjL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

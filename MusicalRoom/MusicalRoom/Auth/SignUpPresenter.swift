@@ -58,6 +58,9 @@ class SignUpPresenter: SignUpPresenterProtocol {
                 self?.view?.showAlert()
                 return
             }
+            UserData.name = name
+            UserData.phone = phone
+            UserData.username = username
             self?.navigateToMainScreen()
         }
     }
@@ -68,5 +71,6 @@ class SignUpPresenter: SignUpPresenterProtocol {
         let view = LoginViewController()
         view.modalPresentationStyle = .fullScreen
         self.view?.present(view, animated: true, completion: nil)
+        //fixme navigationController ?
     }
 }

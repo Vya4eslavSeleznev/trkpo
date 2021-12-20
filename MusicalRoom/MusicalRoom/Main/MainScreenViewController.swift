@@ -28,7 +28,7 @@ class MainScreenViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
         button.setTitle("Go To Reserve", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(goToReserveButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
